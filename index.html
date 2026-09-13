@@ -1756,15 +1756,29 @@
     }
 
     .footer .credit {
-      margin-top: 18px;
-      font-size: 13px;
+      margin-top: 20px;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 13.5px;
       color: var(--faint);
       font-weight: 300;
+      letter-spacing: 0.3px;
+    }
+
+    .footer .credit::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--grass-l);
+      box-shadow: 0 0 8px var(--grass-l);
+      opacity: 0.85;
     }
 
     .footer .credit b {
-      color: var(--muted);
-      font-weight: 500;
+      color: var(--grass-l);
+      font-weight: 600;
     }
 
     .pixel-line {
@@ -2902,7 +2916,7 @@
             </div>
             <p style="font-size:13.5px;color:var(--muted);font-weight:300;">Arsch Attack · Klassenserver der 9c · Java &
               Bedrock</p>
-            <p class="credit">Website von <b>Carlos</b> gebaut.</p>
+            <p class="credit">Erstellt von <b>Carlos</b></p>
             <div class="pixel-line"></div>
           </div>
         </footer>
