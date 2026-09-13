@@ -50,6 +50,8 @@
     html {
       height: 100%;
       scroll-behavior: smooth;
+      overflow-x: hidden;
+      overflow-x: clip;
     }
 
     body {
@@ -59,6 +61,8 @@
       color: var(--text);
       line-height: 1.65;
       overflow-x: hidden;
+      overflow-x: clip;
+      overscroll-behavior-x: none;
       -webkit-font-smoothing: antialiased;
     }
 
@@ -197,6 +201,7 @@
       inset: 0;
       z-index: 1000;
       pointer-events: none;
+      overflow: hidden;
     }
 
     #intro .panel {
@@ -546,6 +551,7 @@
     main {
       position: relative;
       padding-top: var(--nav-h);
+      overflow-x: clip;
     }
 
     .page {
