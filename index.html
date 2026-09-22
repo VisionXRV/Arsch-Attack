@@ -3883,10 +3883,13 @@
     }
 
     @keyframes boBreathe {
-      0%, 100% {
+
+      0%,
+      100% {
         transform: scale(1);
         opacity: 0.6;
       }
+
       50% {
         transform: scale(1.22);
         opacity: 1;
@@ -3922,10 +3925,13 @@
     }
 
     @keyframes boGlowSweep {
-      0%, 100% {
+
+      0%,
+      100% {
         transform: translateX(-6%);
         opacity: 0.4;
       }
+
       50% {
         transform: translateX(6%);
         opacity: 1;
@@ -3962,15 +3968,19 @@
         transform: translateY(0) translateX(0) scale(0.7);
         opacity: 0;
       }
+
       6% {
         opacity: var(--o, 0.55);
       }
+
       45% {
         transform: translateY(-46vh) translateX(var(--x, 30px)) scale(1);
       }
+
       92% {
         opacity: var(--o, 0.55);
       }
+
       100% {
         transform: translateY(-104vh) translateX(calc(var(--x, 30px) * -0.6)) scale(0.6);
         opacity: 0;
@@ -4016,10 +4026,13 @@
     }
 
     @keyframes boHaloPulse {
-      0%, 100% {
+
+      0%,
+      100% {
         transform: scale(0.9);
         opacity: 0.6;
       }
+
       50% {
         transform: scale(1.14);
         opacity: 1;
@@ -4049,6 +4062,7 @@
         transform: scale(0.35);
         opacity: 0.9;
       }
+
       100% {
         transform: scale(7);
         opacity: 0;
@@ -4150,10 +4164,10 @@
       transition: opacity 0.4s var(--ease);
     }
 
-    /* Countdown */
+    /* Countdown (ausgeblendet – beim manuellen Start kein Countdown anzeigen) */
     .bo-countwrap {
+      display: none;
       margin-top: 24px;
-      display: flex;
       flex-direction: column;
       align-items: center;
       gap: 5px;
@@ -4191,10 +4205,13 @@
     }
 
     @keyframes boCountPulse {
-      0%, 100% {
+
+      0%,
+      100% {
         transform: scale(1);
         text-shadow: 0 0 18px rgba(141, 245, 66, 0.7), 0 0 50px rgba(44, 185, 170, 0.3);
       }
+
       50% {
         transform: scale(1.08);
         text-shadow: 0 0 36px rgba(141, 245, 66, 1), 0 0 90px rgba(44, 185, 170, 0.5);
@@ -4274,7 +4291,7 @@
       width: 100%;
     }
 
-    .bo-actions > * {
+    .bo-actions>* {
       opacity: 0;
       transform: translateY(30px) scale(0.96);
       filter: blur(7px);
@@ -4284,7 +4301,7 @@
         filter 0.6s var(--ease) var(--ad, 0s);
     }
 
-    .bo-stage.go .bo-actions > * {
+    .bo-stage.go .bo-actions>* {
       opacity: 1;
       transform: none;
       filter: none;
@@ -4388,6 +4405,7 @@
     }
 
     @media (max-width: 520px) {
+
       .bo-check,
       .bo-check svg {
         width: 140px;
@@ -5301,7 +5319,8 @@
           <span class="t-cancel">Abbrechen</span>
           <span class="t-back">Zurück zur Website</span>
         </button>
-        <p class="bo-status" style="--ad:1.2s"><span class="bo-dot"></span><span id="boStatusText">SYSTEM WIRD HOCHGEFAHREN</span></p>
+        <p class="bo-status" style="--ad:1.2s"><span class="bo-dot"></span><span id="boStatusText">SYSTEM WIRD
+            HOCHGEFAHREN</span></p>
         <p class="bo-link" style="--ad:1.35s">Falls die Server-Verwaltung sich nicht von selbst öffnet:
           <a id="bootFallback" href="https://visionxrv.github.io/mc-server-waker" target="_blank" rel="noopener">hier
             klicken
@@ -5321,9 +5340,11 @@
   <script>    (function () {
       "use strict";
       var POWER_URL = "https://visionxrv.github.io/mc-server-waker";
-      var BOOT_DURATION = 7000;
-      var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      if (reduceMotion) BOOT_DURATION = 900;
+      var BOOT_DURATION = 0;
+      function rollBootDuration() {
+        return 5000 + Math.floor(Math.random() * 5001);
+      }
+      BOOT_DURATION = rollBootDuration();
       /* Intro */      var intro = document.getElementById("intro");
       var introTitle = document.getElementById("introTitle");
       function startIntro() {
@@ -5604,6 +5625,7 @@
       }
       function startBoot() {
         if (!bootOverlay) return;
+        BOOT_DURATION = rollBootDuration();
         resetBoot();
         bootOverlay.classList.add("show");
         bootOverlay.setAttribute("aria-hidden", "false");
@@ -5633,7 +5655,7 @@
           }
           var remain = Math.max(1, Math.ceil((BOOT_DURATION - el) / 1000));
           var boTxt = document.getElementById("boStatusText");
-          if (boTxt) boTxt.textContent = "SYSTEM WIRD HOCHGEFAHREN · CA. " + remain + " S";
+          if (boTxt) boTxt.textContent = "SYSTEM WIRD HOCHGEFAHREN";
           var boCountEl = document.getElementById("boCount");
           if (boCountEl) boCountEl.textContent = remain;
         }
