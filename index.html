@@ -228,69 +228,334 @@
     }
 
     #intro {
+      --apple: cubic-bezier(0.16, 1, 0.3, 1);
+      --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+      --swipe: cubic-bezier(0.5, 0, 0.3, 1);
       position: fixed;
       inset: 0;
       z-index: 1000;
       pointer-events: none;
       overflow: hidden;
+      background: #050504;
+      transition: opacity 0.75s var(--swipe), transform 0.75s var(--swipe);
 
     }
 
-    #intro .panel {
+    #intro.done {
+      opacity: 0;
+      transform: scale(1.03);
+
+    }
+
+    #intro .i-bg {
       position: absolute;
-      left: 0;
-      right: 0;
-      height: 50.5%;
-      background: #0c0910;
-      transition: transform 1s var(--spring);
-
+      inset: 0;
+      overflow: hidden;
     }
 
-    #intro .panel.top {
-      top: 0;
-
+    .i-aurora {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
     }
 
-    #intro .panel.bot {
-      bottom: 0;
-
+    .i-a1 {
+      width: 70vmax;
+      height: 70vmax;
+      top: -30%;
+      left: -16%;
+      background: radial-gradient(circle, rgba(141, 245, 66, 0.16), transparent 62%);
+      opacity: 0.8;
+      animation: iDrift 17s ease-in-out infinite alternate;
     }
 
-    #intro.done .panel.top {
-      transform: translateY(-102%);
-
+    .i-a2 {
+      width: 62vmax;
+      height: 62vmax;
+      bottom: -32%;
+      right: -18%;
+      background: radial-gradient(circle, rgba(44, 185, 170, 0.13), transparent 62%);
+      opacity: 0.7;
+      animation: iDrift 24s ease-in-out infinite alternate-reverse;
     }
 
-    #intro.done .panel.bot {
-      transform: translateY(102%);
+    .i-a3 {
+      width: 38vmax;
+      height: 38vmax;
+      top: 16%;
+      left: 52%;
+      margin-left: -19vmax;
+      background: radial-gradient(circle, rgba(141, 245, 66, 0.12), transparent 65%);
+      opacity: 0.7;
+      animation: iBreathe 8s ease-in-out infinite;
+    }
 
+    @keyframes iDrift {
+      to {
+        transform: translate(9vw, 6vh) scale(1.18);
+      }
+    }
+
+    @keyframes iBreathe {
+
+      0%,
+      100% {
+        transform: scale(1);
+        opacity: 0.5;
+      }
+
+      50% {
+        transform: scale(1.24);
+        opacity: 1;
+      }
+    }
+
+    .i-grid {
+      position: absolute;
+      inset: -2px;
+      background-image: linear-gradient(rgba(141, 245, 66, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(141, 245, 66, 0.05) 1px, transparent 1px);
+      background-size: 46px 46px;
+      -webkit-mask-image: radial-gradient(70% 55% at 50% 32%, #000 15%, transparent 100%);
+      mask-image: radial-gradient(70% 55% at 50% 32%, #000 15%, transparent 100%);
+      animation: iGridCrawl 20s linear infinite;
+    }
+
+    @keyframes iGridCrawl {
+      to {
+        background-position: 46px 46px;
+      }
+    }
+
+    .i-beam {
+      position: absolute;
+      top: -12%;
+      bottom: -12%;
+      left: -140px;
+      width: 120px;
+      background: linear-gradient(90deg, transparent, rgba(141, 245, 66, 0.055), rgba(44, 185, 170, 0.05), transparent);
+      animation: iBeam 5.5s ease-in-out infinite;
+    }
+
+    @keyframes iBeam {
+
+      0% {
+        left: -140px;
+      }
+
+      55% {
+        left: calc(100% + 60px);
+      }
+
+      100% {
+        left: calc(100% + 60px);
+      }
+    }
+
+    .i-vignette {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(120% 120% at 50% 38%, transparent 55%, rgba(0, 0, 0, 0.55) 100%);
+    }
+
+    .i-particles {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .i-p {
+      position: absolute;
+      bottom: -12px;
+      border-radius: 2px;
+      background: var(--grass-l);
+      box-shadow: 0 0 10px rgba(141, 245, 66, 0.8), 0 0 22px rgba(141, 245, 66, 0.4);
+      animation: iRise var(--dur, 18s) linear infinite;
+      animation-delay: var(--delay, 0s);
+      opacity: 0;
+    }
+
+    @keyframes iRise {
+      0% {
+        transform: translateY(0) translateX(0) rotate(0deg) scale(0.7);
+        opacity: 0;
+      }
+
+      6% {
+        opacity: var(--o, 0.55);
+      }
+
+      45% {
+        transform: translateY(-46vh) translateX(var(--x, 30px)) rotate(90deg) scale(1);
+      }
+
+      92% {
+        opacity: var(--o, 0.55);
+      }
+
+      100% {
+        transform: translateY(-104vh) translateX(calc(var(--x, 30px) * -0.6)) rotate(180deg) scale(0.6);
+        opacity: 0;
+      }
     }
 
     .intro-mid {
       position: absolute;
       inset: 0;
+      z-index: 2;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 18px;
-      transition: opacity 0.5s var(--ease) 0.15s;
+      gap: 24px;
 
     }
 
     .intro-logo {
-      width: 76px;
-      height: 76px;
+      position: relative;
+      width: 112px;
+      height: 112px;
       display: grid;
       place-items: center;
-      color: #fff;
-      font-weight: 900;
-      font-size: 40px;
-      font-family: 'Outfit', sans-serif;
-      background: var(--g-btn);
-      filter: drop-shadow(0 14px 40px rgba(61, 169, 108, 0.5));
-      animation: logoBob 2s ease-in-out infinite;
+      animation: logoBob 2.6s ease-in-out infinite;
+    }
 
+    .intro-logo::before {
+      content: '';
+      position: absolute;
+      inset: -46px;
+      border-radius: 18px;
+      background: radial-gradient(circle, rgba(141, 245, 66, 0.15), transparent 66%);
+      animation: iHalo 2.8s ease-in-out infinite;
+    }
+
+    .intro-logo img {
+      position: relative;
+      z-index: 3;
+      width: 92px;
+      height: 92px;
+      border-radius: 12px;
+      object-fit: cover;
+      box-shadow: 0 0 0 2px rgba(141, 245, 66, 0.4), 0 0 36px rgba(141, 245, 66, 0.3), 0 18px 46px rgba(0, 0, 0, 0.55);
+      animation: iLogoIn 0.8s var(--spring) 0.25s both;
+    }
+
+    @keyframes iLogoIn {
+      from {
+        opacity: 0;
+        transform: scale(0.55) rotate(-8deg);
+        filter: blur(8px) brightness(2.2);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+        filter: none;
+      }
+    }
+
+    .intro-logo-frame {
+      position: absolute;
+      inset: -14px;
+      z-index: 1;
+      border-radius: 10px;
+      border: 2px dashed rgba(141, 245, 66, 0.4);
+      animation: iSpinF 9s linear infinite;
+    }
+
+    .intro-logo-frame.r2 {
+      inset: -32px;
+      border-radius: 3px;
+      border: 1px solid rgba(44, 185, 170, 0.26);
+      animation: iSpinF 16s linear infinite reverse;
+    }
+
+    .intro-logo-frame::before,
+    .intro-logo-frame::after {
+      content: '';
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 2px;
+      background: var(--grass-l);
+      box-shadow: 0 0 12px rgba(141, 245, 66, 0.9);
+    }
+
+    .intro-logo-frame::before {
+      top: -6px;
+      left: -6px;
+    }
+
+    .intro-logo-frame::after {
+      bottom: -6px;
+      right: -6px;
+      width: 5px;
+      height: 5px;
+      background: rgba(141, 245, 66, 0.55);
+      box-shadow: none;
+    }
+
+    .intro-logo-frame.r2::before {
+      top: auto;
+      left: auto;
+      right: -5px;
+      bottom: -5px;
+      width: 7px;
+      height: 7px;
+      background: var(--diamond);
+      box-shadow: 0 0 12px rgba(44, 185, 170, 0.9);
+    }
+
+    .intro-logo-frame.r2::after {
+      display: none;
+    }
+
+    .intro-logo-scan {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: -45%;
+      z-index: 4;
+      width: 42%;
+      pointer-events: none;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.14), transparent);
+      animation: iLogoSweep 3s ease-in-out infinite;
+    }
+
+    @keyframes iLogoSweep {
+
+      0% {
+        left: -45%;
+      }
+
+      55% {
+        left: 108%;
+      }
+
+      100% {
+        left: 108%;
+      }
+    }
+
+    @keyframes iSpinF {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes iHalo {
+
+      0%,
+      100% {
+        transform: scale(0.86);
+        opacity: 0.55;
+      }
+
+      50% {
+        transform: scale(1.12);
+        opacity: 1;
+      }
     }
 
     @keyframes logoBob {
@@ -302,7 +567,7 @@
       }
 
       50% {
-        transform: translateY(-7px);
+        transform: translateY(-8px);
 
       }
 
@@ -310,7 +575,7 @@
 
     .intro-title {
       display: flex;
-      gap: 1px;
+      gap: 2px;
       flex-wrap: wrap;
       justify-content: center;
 
@@ -320,42 +585,123 @@
       font-family: 'Press Start 2P', monospace;
       font-size: clamp(17px, 3.6vw, 30px);
       letter-spacing: 0.5px;
-      color: transparent;
-      background: linear-gradient(100deg, #fff, #8df542 40%, #2cb9aa 75%, #fcdb05);
+      background: linear-gradient(100deg, #ffffff 20%, #b4ff86 46%, #ffffff 72%);
+      background-size: 200% auto;
       -webkit-background-clip: text;
       background-clip: text;
+      color: transparent;
       opacity: 0;
-      transform: translateY(26px);
-      transition: opacity 0.5s var(--ease) var(--dd, 0s), transform 0.5s var(--spring) var(--dd, 0s);
-
+      transform: translateY(24px) scale(0.92);
+      filter: blur(9px);
+      transition:
+        opacity 0.45s var(--apple) var(--dd, 0s),
+        transform 0.7s var(--spring) var(--dd, 0s),
+        filter 0.4s var(--ease) var(--dd, 0s);
+      animation: iShine 2.6s linear infinite;
     }
 
     .intro-title span.in {
       opacity: 1;
       transform: none;
+      filter: none;
+    }
 
+    @keyframes iShine {
+      to {
+        background-position: 200% center;
+      }
     }
 
     .intro-bar {
-      width: min(280px, 66vw);
-      height: 3px;
+      position: relative;
+      width: min(300px, 62vw);
+      height: 7px;
       border-radius: 3px;
-      background: rgba(255, 255, 255, 0.08);
+      background:
+        repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.07) 0, rgba(255, 255, 255, 0.07) 22px, rgba(255, 255, 255, 0.02) 22px, rgba(255, 255, 255, 0.02) 27px);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
       overflow: hidden;
 
     }
 
     .intro-bar i {
+      position: relative;
       display: block;
       height: 100%;
       width: 0%;
       border-radius: 3px;
-      background: var(--g-btn);
-      transition: width 1.2s var(--ease) 0.4s;
+      background:
+        repeating-linear-gradient(90deg, rgba(141, 245, 66, 0.92) 0, rgba(141, 245, 66, 0.92) 22px, rgba(44, 185, 170, 0.9) 22px, rgba(44, 185, 170, 0.9) 27px);
+      box-shadow: 0 0 16px rgba(141, 245, 66, 0.6);
+      transition: width 1.5s var(--apple) 0.45s;
 
     }
 
+    .intro-bar i::after {
+      content: '';
+      position: absolute;
+      top: -2px;
+      bottom: -2px;
+      right: -3px;
+      width: 9px;
+      border-radius: 2px;
+      background: #fff;
+      box-shadow: 0 0 12px rgba(255, 255, 255, 0.95);
+      animation: iTipRun 0.9s var(--swipe) infinite;
+
+    }
+
+    @keyframes iTipRun {
+
+      0%,
+      100% {
+        transform: scaleX(0.7);
+        opacity: 0.85;
+      }
+
+      50% {
+        transform: scaleX(1.3);
+        opacity: 1;
+      }
+    }
+
+    .intro-tag {
+      position: absolute;
+      bottom: 26px;
+      left: 0;
+      right: 0;
+      z-index: 2;
+      text-align: center;
+      font-family: 'Outfit', sans-serif;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.25);
+      opacity: 0;
+      animation: iTagIn 0.8s var(--ease) 0.55s forwards;
+
+    }
+
+    @keyframes iTagIn {
+      to {
+        opacity: 1;
+      }
+    }
+
     #intro.done .intro-mid {
+      filter: blur(6px);
+      transform: scale(1.04);
+
+    }
+
+    #intro.done .intro-mid,
+    #intro.done .intro-tag {
+      transition: opacity 0.3s var(--ease), filter 0.5s var(--ease), transform 0.6s var(--swipe);
+
+    }
+
+    #intro.done .intro-tag {
       opacity: 0;
 
     }
@@ -3703,9 +4049,31 @@
       }
 
       .intro-logo {
+        width: 68px;
+        height: 68px;
+
+      }
+
+      .intro-logo img {
         width: 60px;
         height: 60px;
-        font-size: 30px;
+        border-radius: 8px;
+
+      }
+
+      .intro-logo::before {
+        inset: -30px;
+
+      }
+
+      .intro-logo-frame {
+        inset: -10px;
+        border-radius: 7px;
+
+      }
+
+      .intro-logo-frame.r2 {
+        inset: -22px;
 
       }
 
@@ -4260,7 +4628,8 @@
     }
 
     .bo-sub {
-      margin-top: 14px;
+      margin: 14px auto 0;
+      text-align: center;
       font-size: 17px;
       font-weight: 400;
       color: var(--muted);
@@ -4435,12 +4804,20 @@
   <div class="blob b3" aria-hidden="true">
   </div>
   <div id="intro" aria-hidden="true">
-    <div class="panel top">
+    <div class="i-bg" aria-hidden="true">
+      <div class="i-aurora i-a1"></div>
+      <div class="i-aurora i-a2"></div>
+      <div class="i-aurora i-a3"></div>
+      <div class="i-grid"></div>
+      <div class="i-beam"></div>
+      <div class="i-vignette"></div>
     </div>
-    <div class="panel bot">
-    </div>
+    <div class="i-particles" id="introParticles" aria-hidden="true"></div>
     <div class="intro-mid">
       <div class="intro-logo">
+        <div class="intro-logo-frame"></div>
+        <div class="intro-logo-frame r2"></div>
+        <div class="intro-logo-scan"></div>
         <img
           src="https://raw.githubusercontent.com/VisionXRV/Arsch-Attack/2dbede0a6ee607befea378c56f126b6f79e69a23/server-logo.jpg"
           alt="Arsch Attack">
@@ -4452,6 +4829,7 @@
         </i>
       </div>
     </div>
+    <p class="intro-tag">Arsch Attack · Klassenserver 9c</p>
   </div>
   <nav class="nav" id="nav">
     <div class="nav-inner">
@@ -5304,10 +5682,10 @@
       </div>
       <div class="bo-type">
         <h2 class="bo-title">
-          <span class="bo-line" style="--ld:.25s">Server wird jetzt</span>
-          <span class="bo-line" style="--ld:.38s">hochgefahren</span>
+          <span class="bo-line" style="--ld:.25s">Wake Up Bot</span>
+          <span class="bo-line" style="--ld:.38s">wird an den Server gesendet</span>
         </h2>
-        <p class="bo-sub" id="bootSub">Es kann 1–2 Minuten dauern, bis alles bereit ist.</p>
+        <p class="bo-sub" id="bootSub">Es kann 1–2 Minuten dauern,nachdem der Server gestartet ist.</p>
       </div>
       <div class="bo-countwrap" aria-live="polite">
         <span class="bo-count-label" id="boCountLabel"></span>
@@ -5342,12 +5720,31 @@
       var POWER_URL = "https://visionxrv.github.io/mc-server-waker";
       var BOOT_DURATION = 0;
       function rollBootDuration() {
-        return 5000 + Math.floor(Math.random() * 5001);
+        return 6000 + Math.floor(Math.random() * 6001);
       }
       BOOT_DURATION = rollBootDuration();
       /* Intro */      var intro = document.getElementById("intro");
       var introTitle = document.getElementById("introTitle");
       function startIntro() {
+        var iParts = document.getElementById("introParticles");
+        if (iParts && !iParts.childElementCount) {
+          var n = window.innerWidth < 520 ? 12 : 22;
+          for (var i = 0; i < n; i++) {
+            var ip = document.createElement("span");
+            ip.className = "i-p";
+            var is = 2 + Math.random() * 3;
+            ip.style.width = is + "px";
+            ip.style.height = is + "px";
+            ip.style.left = Math.random() * 100 + "%";
+            ip.style.setProperty("--dur", (12 + Math.random() * 20) + "s");
+            ip.style.setProperty("--delay", (-Math.random() * 30) + "s");
+            ip.style.setProperty("--x", ((Math.random() * 140) - 70).toFixed(0) + "px");
+            ip.style.setProperty("--o", (0.25 + Math.random() * 0.5).toFixed(2));
+            iParts.appendChild(ip);
+
+          }
+
+        }
         var word = "ARSCH-ATTACK";
         if (introTitle) {
           word.split("").forEach(function (ch, i) {
@@ -5371,29 +5768,22 @@
 
         }
           , 500);
-        setTimeout(finishIntro, 1700);
+        setTimeout(finishIntro, 2150);
 
       }
       function finishIntro() {
         if (intro) {
-          setTimeout(function () {
-            intro.classList.add("done");
-
-          }
-            , 250);
+          intro.classList.add("done");
           setTimeout(function () {
             if (intro.parentNode) intro.parentNode.removeChild(intro);
 
           }
-            , 1400);
+            , 950);
 
         }
-        setTimeout(function () {
-          document.body.classList.add("ready");
-          animateHeroTitle();
-
-        }
-          , 40);
+        document.body.classList.add("ready");
+        animateHeroTitle();
+        initReveals();
 
       }
       /* Hero title letters */      function animateHeroTitle() {
@@ -5471,8 +5861,18 @@
       }
       );
       /* Reveal on scroll */      var revealEls = document.querySelectorAll("[data-reveal]");
-      if ("IntersectionObserver" in window) {
-        var revealObs = new IntersectionObserver(function (entries) {
+      var revealObs = null;
+      function initReveals() {
+        if (typeof IntersectionObserver === "undefined") {
+          revealEls.forEach(function (el) {
+            el.classList.add("visible");
+
+          }
+          );
+          return;
+        }
+        if (revealObs) return;
+        revealObs = new IntersectionObserver(function (entries) {
           entries.forEach(function (en) {
             if (en.isIntersecting) {
               en.target.classList.add("visible");
@@ -5490,14 +5890,6 @@
         );
         revealEls.forEach(function (el) {
           revealObs.observe(el);
-
-        }
-        );
-
-      }
-      else {
-        revealEls.forEach(function (el) {
-          el.classList.add("visible");
 
         }
         );
