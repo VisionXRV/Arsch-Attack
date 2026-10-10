@@ -1352,6 +1352,27 @@
 
     }
 
+    .chip.hot {
+      color: var(--amber);
+      background: rgba(229, 160, 14, 0.1);
+      box-shadow: inset 0 0 0 1px rgba(229, 160, 14, 0.45), 0 0 18px rgba(229, 160, 14, 0.18);
+      animation: chipPulse 2.4s var(--ease) infinite;
+
+    }
+
+    @keyframes chipPulse {
+
+      0%,
+      100% {
+        box-shadow: inset 0 0 0 1px rgba(229, 160, 14, 0.45), 0 0 12px rgba(229, 160, 14, 0.14);
+      }
+
+      50% {
+        box-shadow: inset 0 0 0 1px rgba(229, 160, 14, 0.75), 0 0 26px rgba(229, 160, 14, 0.35);
+      }
+
+    }
+
     .eyebrow {
       display: inline-flex;
       align-items: center;
@@ -2345,6 +2366,27 @@
       color: var(--diamond);
       background: rgba(44, 185, 170, 0.09);
       box-shadow: inset 0 0 0 1px rgba(44, 185, 170, 0.4), 0 0 24px rgba(44, 185, 170, 0.12);
+
+    }
+
+    .plugin-ic.seat {
+      color: var(--gold);
+      background: rgba(252, 219, 5, 0.09);
+      box-shadow: inset 0 0 0 1px rgba(252, 219, 5, 0.4), 0 0 24px rgba(252, 219, 5, 0.12);
+
+    }
+
+    .plugin-ic.sift {
+      color: #b06bf2;
+      background: rgba(176, 107, 242, 0.09);
+      box-shadow: inset 0 0 0 1px rgba(176, 107, 242, 0.4), 0 0 24px rgba(176, 107, 242, 0.12);
+
+    }
+
+    .plugin-ic.dupe {
+      color: var(--amber);
+      background: rgba(229, 160, 14, 0.09);
+      box-shadow: inset 0 0 0 1px rgba(229, 160, 14, 0.4), 0 0 24px rgba(229, 160, 14, 0.12);
 
     }
 
@@ -4894,7 +4936,7 @@
           </span>
           <span class="chip teal" data-reveal style="--d:.12s">JAVA · BEDROCK
           </span>
-          <span class="chip gold" data-reveal style="--d:.19s">SERVER-IMPULS
+          <span class="chip gold" data-reveal style="--d:.19s">SCHNELER SERVER
           </span>
         </div>
         <div class="hero-title-wrap">
@@ -5381,8 +5423,6 @@
               </b> Feldfrüchte wie Weizen, Karotten oder Kartoffeln erntest du jetzt mit einem Rechtsklick. Kein
               Einzel-Abbauen mehr – einfach bequem durch die Felder laufen.
             </p>
-            <span class="plugin-tag">ROUTINE · KEIN CRUNCH
-            </span>
           </article>
           <article class="plugin-card" data-reveal="right" style="--d:.32s">
             <div class="plugin-ic grave">
@@ -5400,8 +5440,62 @@
               </b> Schickst du hier das Zeitliche segnen, erscheint an deiner Stelle ein Grab. Deine Items warten darin
               sicher auf dich – nichts geht beim Abschmieren verloren.
             </p>
-            <span class="plugin-tag">SAFE · ITEMS VERLOREN
-            </span>
+          </article>
+          <article class="plugin-card" data-reveal="left" style="--d:.42s">
+            <div class="plugin-ic seat">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M19 9V6a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v3" />
+                <path d="M3 11v5a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-5a2 2 0 0 0-4 0v2H7v-2a2 2 0 0 0-4 0Z" />
+                <path d="M5 18v2" />
+                <path d="M19 18v2" />
+              </svg>
+            </div>
+            <h3>GSit
+            </h3>
+            <p>
+              <b>Sitzen, Liegen & Kriechen.
+              </b> Setz dich mit einem Rechtsklick auf Treppen, Stufen und Teppiche – oder gleich auf andere Spieler.
+              Außerdem kannst du dich hinlegen, auf dem Boden kriechen und durch enge Gänge robben.
+            </p>
+          </article>
+          <article class="plugin-card" data-reveal="right" style="--d:.52s">
+            <div class="plugin-ic sift">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10" />
+                <path d="m14.31 8 5.74 9.94" />
+                <path d="M9.69 8h11.48" />
+                <path d="m7.38 12 5.74-9.94" />
+                <path d="M9.69 16 3.95 6.06" />
+                <path d="M14.31 16H2.83" />
+                <path d="m16.62 12-5.74 9.94" />
+              </svg>
+            </div>
+            <h3>The Sift
+            </h3>
+            <p>
+              <b>Neue Dimension.
+              </b> Ein Amethyst-Portal führt dich in eine fremde Welt mit türkisem Himmel und neuen Biomen: rosa
+              Wiesen, ein Frostwald mit weißen Riesenbäumen, rote Felsnadeln und schwebende Inseln. Dazu kommen 11
+              Kreaturen, 3 Dungeons, 5 Bosse und jede Menge neue Items.
+            </p>
+          </article>
+          <article class="plugin-card" data-reveal="left" style="--d:.62s">
+            <div class="plugin-ic dupe">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+                <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+              </svg>
+            </div>
+            <h3>TripWire Dupe
+            </h3>
+            <p>
+              <b>Tripwire-Vervielfachung.
+              </b> Baue die Tripwire-Konstruktion auf und aktivier sie per Redstone – danach vervielfachen sich Haken
+              und Items von selbst. Vollautomatisch, kompakt und serverfreundlich.
+            </p>
           </article>
         </div>
       </div>
@@ -5560,6 +5654,12 @@
             <b>#report-bugs-or-feedback
             </b>. Da hilft dir schnell jemand weiter.
           </p>
+          <div class="hero-badges" data-reveal style="--d:.3s">
+            <span class="chip teal"><span class="dot"></span>24 H ONLINE
+            </span>
+            <span class="chip hot"><span class="dot"></span>12 H SUPPORT
+            </span>
+          </div>
         </div>
         <footer class="footer">
           <div class="footer-logos">
