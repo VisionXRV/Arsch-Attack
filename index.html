@@ -1141,6 +1141,404 @@
 
     }
 
+    @property --cd-a {
+      syntax: '<angle>';
+      inherits: false;
+      initial-value: 0deg;
+
+    }
+
+    .countdown {
+      position: relative;
+      max-width: 680px;
+      margin: 40px auto 0;
+      padding: 30px 24px 26px;
+      border-radius: 24px;
+      overflow: hidden;
+      isolation: isolate;
+      background: linear-gradient(180deg, rgba(141, 245, 66, 0.09), rgba(44, 185, 170, 0.05) 45%, rgba(252, 219, 5, 0.05));
+      box-shadow: inset 0 0 0 1px var(--border), 0 30px 70px rgba(0, 0, 0, 0.5);
+
+    }
+
+    .countdown::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      padding: 1.5px;
+      background: conic-gradient(from var(--cd-a), transparent 0 34%, rgba(141, 245, 66, 0.95) 46%, rgba(44, 185, 170, 1) 54%, rgba(252, 219, 5, 0.95) 62%, transparent 74% 100%);
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      mask-composite: exclude;
+      animation: cdSpin 5s linear infinite;
+      pointer-events: none;
+
+    }
+
+    @keyframes cdSpin {
+      to {
+        --cd-a: 360deg;
+
+      }
+
+    }
+
+    .cd-eyebrow {
+      position: relative;
+      z-index: 1;
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 9px;
+      letter-spacing: 2px;
+      color: var(--grass-l);
+
+    }
+
+    .cd-live {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--red);
+      box-shadow: 0 0 12px var(--red);
+      animation: cdBlink 1.4s ease-in-out infinite;
+
+    }
+
+    @keyframes cdBlink {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.25;
+      }
+
+    }
+
+    .cd-title {
+      position: relative;
+      z-index: 1;
+      margin-top: 12px;
+      font-size: clamp(18px, 3.6vw, 26px);
+      font-weight: 800;
+      letter-spacing: -0.4px;
+      background: var(--g-title);
+      background-size: 220% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      filter: drop-shadow(0 0 18px rgba(141, 245, 66, 0.35));
+      animation: gradMove 3.5s linear infinite alternate;
+
+    }
+
+    .cd-timer {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 22px;
+      flex-wrap: wrap;
+
+    }
+
+    .cd-unit {
+      min-width: 86px;
+      padding: 16px 12px 12px;
+      border-radius: 16px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.015));
+      box-shadow: inset 0 0 0 1px var(--border), 0 12px 30px rgba(0, 0, 0, 0.35);
+      animation: cdUnitGlow 3s ease-in-out infinite;
+
+    }
+
+    @keyframes cdUnitGlow {
+
+      0%,
+      100% {
+        box-shadow: inset 0 0 0 1px var(--border), 0 12px 30px rgba(0, 0, 0, 0.35);
+      }
+
+      50% {
+        box-shadow: inset 0 0 0 1px rgba(141, 245, 66, 0.55), 0 12px 34px rgba(0, 0, 0, 0.35), 0 0 28px rgba(141, 245, 66, 0.25);
+      }
+
+    }
+
+    .cd-num {
+      display: flex;
+      justify-content: center;
+      gap: 0.06em;
+      font-family: 'Press Start 2P', monospace;
+      font-size: clamp(22px, 5.6vw, 40px);
+      line-height: 1.2;
+      font-variant-numeric: tabular-nums;
+      filter: drop-shadow(0 0 16px rgba(141, 245, 66, 0.45));
+
+    }
+
+    .cd-digit {
+      display: block;
+      position: relative;
+      height: 1.2em;
+      overflow: hidden;
+
+    }
+
+    .cd-dial {
+      display: block;
+      transform: translateY(-1.2em);
+
+    }
+
+    .cd-dial.roll {
+      transition: transform 0.42s var(--spring);
+      transform: translateY(0);
+
+    }
+
+    .cn-inner {
+      display: block;
+      height: 1.2em;
+      line-height: 1.2;
+      background: linear-gradient(180deg, #ffffff, var(--grass-l) 58%, var(--diamond));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+
+    }
+
+    .cd-label {
+      display: block;
+      margin-top: 12px;
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 500;
+
+    }
+
+    .cd-sep {
+      font-family: 'Press Start 2P', monospace;
+      font-size: clamp(18px, 4vw, 28px);
+      color: var(--diamond);
+      opacity: 0.6;
+      animation: cdBlink 1s ease-in-out infinite;
+
+    }
+
+    .cd-when {
+      position: relative;
+      z-index: 1;
+      margin-top: 18px;
+      font-size: 13px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+
+    }
+
+    .cd-glow {
+      position: absolute;
+      z-index: 0;
+      top: 50%;
+      left: 50%;
+      width: min(540px, 94%);
+      height: min(540px, 94%);
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(141, 245, 66, 0.24), rgba(44, 185, 170, 0.13) 46%, transparent 70%);
+      filter: blur(26px);
+      animation: cdPulse 3.4s ease-in-out infinite;
+      pointer-events: none;
+
+    }
+
+    @keyframes cdPulse {
+
+      0%,
+      100% {
+        opacity: 0.5;
+        transform: translate(-50%, -50%) scale(0.88);
+      }
+
+      50% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.08);
+      }
+
+    }
+
+    .cd-ring {
+      position: absolute;
+      z-index: 0;
+      top: 50%;
+      left: 50%;
+      width: 250px;
+      height: 250px;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      background: conic-gradient(from 0deg, transparent 0 68%, rgba(141, 245, 66, 0.55) 82%, rgba(252, 219, 5, 0.65) 90%, transparent 100%);
+      -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 2px));
+      mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 2px));
+      animation: cdRingSpin 8s linear infinite;
+      opacity: 0.75;
+      pointer-events: none;
+
+    }
+
+    @keyframes cdRingSpin {
+      to {
+        transform: translate(-50%, -50%) rotate(360deg);
+
+      }
+
+    }
+
+    .cd-live-state {
+      display: none;
+      position: relative;
+      z-index: 2;
+
+    }
+
+    .countdown.live .cd-eyebrow,
+    .countdown.live .cd-title,
+    .countdown.live .cd-timer,
+    .countdown.live .cd-when {
+      display: none;
+
+    }
+
+    .countdown.live .cd-glow {
+      background: radial-gradient(circle, rgba(141, 245, 66, 0.5), rgba(252, 219, 5, 0.22) 46%, transparent 72%);
+      animation: cdPulse 1.6s ease-in-out infinite;
+
+    }
+
+    .countdown.live {
+      background: linear-gradient(180deg, rgba(141, 245, 66, 0.16), rgba(252, 219, 5, 0.08));
+      animation: cdLivePulse 1.8s ease-in-out infinite;
+
+    }
+
+    @keyframes cdLivePulse {
+
+      0%,
+      100% {
+        box-shadow: inset 0 0 0 1px rgba(141, 245, 66, 0.5), 0 30px 80px rgba(141, 245, 66, 0.18);
+      }
+
+      50% {
+        box-shadow: inset 0 0 0 2px rgba(141, 245, 66, 0.95), 0 30px 90px rgba(141, 245, 66, 0.4);
+      }
+
+    }
+
+    .countdown.live .cd-live-state {
+      display: block;
+      animation: cdLiveIn 0.6s var(--spring) both;
+
+    }
+
+    @keyframes cdLiveIn {
+      from {
+        opacity: 0;
+        transform: scale(0.85);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+
+    }
+
+    .cd-live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 9px;
+      letter-spacing: 2px;
+      color: var(--gold);
+      background: rgba(252, 219, 5, 0.12);
+      box-shadow: inset 0 0 0 1px rgba(252, 219, 5, 0.45);
+      padding: 7px 13px;
+      border-radius: 999px;
+
+    }
+
+    .cd-live-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 14px var(--green);
+      animation: cdBlink 0.9s ease-in-out infinite;
+
+    }
+
+    .cd-live-title {
+      margin-top: 16px;
+      font-family: 'Press Start 2P', monospace;
+      font-size: clamp(30px, 8vw, 64px);
+      line-height: 1.05;
+      background: var(--g-title);
+      background-size: 220% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      filter: drop-shadow(0 0 28px rgba(141, 245, 66, 0.6));
+      animation: cdLiveZoom 1.5s var(--spring) infinite alternate, gradMove 2.5s linear infinite alternate;
+
+    }
+
+    @keyframes cdLiveZoom {
+      from {
+        transform: scale(1);
+      }
+
+      to {
+        transform: scale(1.06);
+      }
+
+    }
+
+    .cd-live-sub {
+      margin-top: 16px;
+      font-size: 15px;
+      color: var(--text);
+
+    }
+
+    .cd-live-btn {
+      margin-top: 22px;
+      animation: cdBtnBounce 1.4s ease-in-out infinite;
+
+    }
+
+    @keyframes cdBtnBounce {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-5px);
+      }
+
+    }
+
     .hero-float {
       position: absolute;
       pointer-events: none;
@@ -4034,6 +4432,12 @@
 
       }
 
+      .cd-unit {
+        min-width: 72px;
+        padding: 14px 10px 10px;
+
+      }
+
     }
 
     @media (max-width: 520px) {
@@ -4082,6 +4486,41 @@
 
       .hero-sub {
         font-size: 15px;
+
+      }
+
+      .countdown {
+        padding: 24px 14px 20px;
+        border-radius: 20px;
+
+      }
+
+      .cd-timer {
+        gap: 5px;
+
+      }
+
+      .cd-unit {
+        min-width: 62px;
+        padding: 12px 7px 9px;
+        border-radius: 13px;
+
+      }
+
+      .cd-num {
+        font-size: clamp(18px, 6.4vw, 26px);
+
+      }
+
+      .cd-label {
+        font-size: 9px;
+        letter-spacing: 1px;
+        margin-top: 9px;
+
+      }
+
+      .cd-sep {
+        font-size: 16px;
 
       }
 
@@ -4966,6 +5405,53 @@
             </svg> Server manuell starten
           </a>
         </div>
+        <div class="countdown" id="countdown" data-reveal style="--d:.75s">
+          <span class="cd-glow" aria-hidden="true"></span>
+          <span class="cd-ring" aria-hidden="true"></span>
+          <span class="cd-eyebrow">
+            <span class="cd-live"></span>SEASON 2 START
+          </span>
+          <h3 class="cd-title" id="cdTitle">Noch bis zum Start von Season 2
+          </h3>
+          <div class="cd-timer" id="cdTimer" aria-live="polite">
+            <div class="cd-unit">
+              <span class="cd-num" id="cdDays"><span class="cd-digit"><span class="cd-dial"><span class="cn-inner">0</span><span class="cn-inner">0</span></span></span><span class="cd-digit"><span class="cd-dial"><span class="cn-inner">0</span><span class="cn-inner">0</span></span></span></span>
+              <span class="cd-label">Tage</span>
+            </div>
+            <span class="cd-sep">:</span>
+            <div class="cd-unit">
+              <span class="cd-num" id="cdHours"><span class="cd-digit"><span class="cd-dial"><span class="cn-inner">0</span><span class="cn-inner">0</span></span></span><span class="cd-digit"><span class="cd-dial"><span class="cn-inner">0</span><span class="cn-inner">0</span></span></span></span>
+              <span class="cd-label">Stunden</span>
+            </div>
+            <span class="cd-sep">:</span>
+            <div class="cd-unit">
+              <span class="cd-num" id="cdMins"><span class="cd-digit"><span class="cd-dial"><span class="cn-inner">0</span><span class="cn-inner">0</span></span></span><span class="cd-digit"><span class="cd-dial"><span class="cn-inner">0</span><span class="cn-inner">0</span></span></span></span>
+              <span class="cd-label">Minuten</span>
+            </div>
+            <span class="cd-sep">:</span>
+            <div class="cd-unit">
+              <span class="cd-num" id="cdSecs"><span class="cd-digit"><span class="cd-dial"><span class="cn-inner">0</span><span class="cn-inner">0</span></span></span><span class="cd-digit"><span class="cd-dial"><span class="cn-inner">0</span><span class="cn-inner">0</span></span></span></span>
+              <span class="cd-label">Sekunden</span>
+            </div>
+          </div>
+          <p class="cd-when">Freitag · 14:30 Uhr
+          </p>
+          <div class="cd-live-state" id="cdLiveState">
+            <span class="cd-live-badge"><span class="cd-live-dot"></span>SEASON 2 IST DA
+            </span>
+            <h3 class="cd-live-title">ES GEHT LOS!
+            </h3>
+            <p class="cd-live-sub">Season 2 hat begonnen – jetzt joinen und mitspielen.
+            </p>
+            <a class="btn btn-primary cd-live-btn" href="#join">Jetzt joinen
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M22 12 10 18.5v-13Z" />
+                <path d="M2 12h8M2 7.5h5M2 16.5h5" />
+              </svg>
+            </a>
+          </div>
+        </div>
       </div>
       <svg class="hero-float hf-1" viewBox="0 0 64 64" aria-hidden="true">
         <polygon points="32,4 58,17 32,30 6,17" fill="#8df542" opacity=".9" />
@@ -5217,9 +5703,8 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                 stroke-linejoin="round">
                 <path d="M13 2 3 14h9l-1 8 10-12h-9l1-8Z" />
-              </svg> Tipp: Die
-              <b>Startfunktion
-              </b> weiter oben ist extra für Bedrock-Spieler gebaut – ein Klick, und der Server läuft.
+              </svg>
+              <span>Tipp: Die <b>Startfunktion</b> weiter unten ist extra für Bedrock-Spieler gebaut – ein Klick, und der Server läuft.</span>
             </p>
           </article>
         </div>
@@ -5909,6 +6394,82 @@
         el.appendChild(wrap);
 
       }
+      /* Season 2 countdown */      (function () {
+        var cdTimer = document.getElementById("cdTimer");
+        if (!cdTimer) return;
+        var elDays = document.getElementById("cdDays");
+        var elHours = document.getElementById("cdHours");
+        var elMins = document.getElementById("cdMins");
+        var elSecs = document.getElementById("cdSecs");
+        var cdTitle = document.getElementById("cdTitle");
+        var when = document.querySelector(".cd-when");
+        var cdBox = document.getElementById("countdown");
+        var cdInterval = null;
+        var SEASON_START = new Date("2026-10-16T14:30:00+02:00").getTime();
+        function pad(n) {
+          return (n < 10 ? "0" : "") + n;
+        }
+        function rollDigit(digitEl, ch) {
+          var dial = digitEl.firstElementChild;
+          var top = dial.children[0];
+          var bottom = dial.children[1];
+          var ver = (parseInt(digitEl.getAttribute("data-ver"), 10) || 0) + 1;
+          digitEl.setAttribute("data-ver", ver);
+          if (dial.classList.contains("roll")) {
+            dial.classList.remove("roll");
+            void dial.offsetWidth;
+            bottom.textContent = top.textContent;
+          }
+          if (bottom.textContent === ch) return;
+          top.textContent = ch;
+          void dial.offsetWidth;
+          dial.classList.add("roll");
+          setTimeout(function () {
+            if ((parseInt(digitEl.getAttribute("data-ver"), 10) || 0) !== ver) return;
+            dial.classList.remove("roll");
+            void dial.offsetWidth;
+            bottom.textContent = ch;
+            top.textContent = ch;
+          }
+            , 430);
+        }
+        function setNum(el, val) {
+          if (!el) return;
+          var txt = pad(val);
+          var digits = el.children;
+          for (var i = 0; i < digits.length && i < txt.length; i++) {
+            rollDigit(digits[i], txt.charAt(i));
+          }
+        }
+        function update() {
+          var now = new Date();
+          var diff = SEASON_START - now.getTime();
+          if (diff <= 0) {
+            setNum(elDays, 0);
+            setNum(elHours, 0);
+            setNum(elMins, 0);
+            setNum(elSecs, 0);
+            if (cdTitle) cdTitle.textContent = "Season 2 läuft – leg los!";
+            if (when) when.textContent = "Es ist so weit";
+            if (cdBox) cdBox.classList.add("live");
+            if (cdInterval) clearInterval(cdInterval);
+            return;
+          }
+          var s = Math.floor(diff / 1000);
+          var days = Math.floor(s / 86400);
+          var hours = Math.floor((s % 86400) / 3600);
+          var mins = Math.floor((s % 3600) / 60);
+          var secs = s % 60;
+          setNum(elDays, days);
+          setNum(elHours, hours);
+          setNum(elMins, mins);
+          setNum(elSecs, secs);
+        }
+        update();
+        cdInterval = setInterval(update, 1000);
+
+      }
+      )();
       /* Nav / Menu / Scrollspy */      var burger = document.getElementById("navBurger");
       function closeMenu() {
         document.body.classList.remove("menu-open");
