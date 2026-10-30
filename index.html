@@ -6561,7 +6561,110 @@
         animation: none !important;
       }
     }
-  </style>
+  
+/* ===== PERFORMANCE EDITION =====
+   Die Optik bleibt erhalten, aber teure Daueranimationen, Blur-Flächen
+   und Layout-Berechnungen beim Scrollen werden abgeschaltet.
+*/
+html {
+  scroll-behavior: auto !important;
+}
+
+.nav,
+.menu,
+.btn-ghost,
+.hw-modal,
+.hw-menu,
+#toast,
+#secretOverlay {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+.nav {
+  background: rgba(14, 12, 8, 0.94) !important;
+}
+
+.menu {
+  background: rgba(10, 8, 6, 0.985) !important;
+}
+
+.btn-ghost {
+  background: rgba(22, 17, 12, 0.92) !important;
+}
+
+/* Große Blur-Flächen sind teuer, besonders zusammen mit Scrollen. */
+.blob,
+.i-aurora {
+  filter: none !important;
+}
+
+/* Während des normalen Seitenbetriebs keine endlosen Paint-Animationen. */
+body.perf-mode .bg-grid,
+body.perf-mode .bg-fade,
+body.perf-mode .blob,
+body.perf-mode .hw-stars,
+body.perf-mode .hw-fog,
+body.perf-mode .hw-ember,
+body.perf-mode .hw-confetti {
+  animation: none !important;
+}
+
+/* Animationen der Intro-Szene bleiben aktiv, bis sie fertig ist. */
+body.perf-mode .i-particles,
+body.perf-mode #intro {
+  animation-play-state: running;
+}
+
+/* Keine teuren Filter bei großen Überschriften im Dauerbetrieb. */
+body.perf-mode .hero-title {
+  filter: drop-shadow(0 0 12px rgba(141, 245, 66, 0.28)) !important;
+}
+
+/* Scrollen soll nie durch einen laufenden Compositor-Effekt blockiert werden. */
+body.is-scrolling .nav,
+body.is-scrolling .menu,
+body.is-scrolling .btn-ghost,
+body.is-scrolling #toast,
+body.is-scrolling #secretOverlay {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+/* Nur wirklich bewegte Elemente bekommen eine eigene Compositor-Ebene. */
+.ticker-track {
+  transform: translateZ(0);
+}
+
+/* Weniger Aufwand für große Sektionen. */
+.page,
+.hero,
+.card,
+.power-panel {
+  contain: layout style;
+}
+
+  
+/* ===== LIGHT BACKGROUND MODE =====
+   Animationen bleiben erhalten; nur die Hintergrund-Deko wird reduziert.
+*/
+.bg-grid {
+  opacity: .32 !important;
+}
+.bg-fade {
+  opacity: .55 !important;
+}
+.blob {
+  opacity: .28 !important;
+}
+.hw-stars {
+  opacity: .45 !important;
+}
+.hw-fog {
+  opacity: .22 !important;
+}
+
+</style>
 </head>
 
 <body>
@@ -7788,6 +7891,11 @@
         document.body.classList.add("ready");
         animateHeroTitle();
         initReveals();
+        /* Nach dem Einblenden wird die Seite auf maximale Scroll-Performance
+           umgeschaltet. Hover- und Klick-Übergänge bleiben erhalten. */
+        window.setTimeout(function () {
+          document.body.classList.add("perf-mode");
+        }, 3200);
 
       }
       /* Hero title letters */      function animateHeroTitle() {
@@ -7845,25 +7953,51 @@
       );
       var sections = Array.prototype.slice.call(document.querySelectorAll('main section[id]'));
       var anchors = document.querySelectorAll('#navLinks a, #menu a');
-      function updateSpy() {
-        var pos = window.scrollY + 150;
-        var current = sections.length ? sections[0].id : "";
-        sections.forEach(function (s) {
-          if (s.offsetTop <= pos) current = s.id;
+      var sectionTops = [];
+      var spyRaf = 0;
 
+      function refreshSectionTops() {
+        var y = window.scrollY || window.pageYOffset || 0;
+        sectionTops = sections.map(function (section) {
+          return {
+            id: section.id,
+            top: section.getBoundingClientRect().top + y
+          };
+        });
+      }
+
+      function updateSpyNow() {
+        var pos = (window.scrollY || window.pageYOffset || 0) + 150;
+        var current = sectionTops.length ? sectionTops[0].id : "";
+        for (var i = 0; i < sectionTops.length; i++) {
+          if (sectionTops[i].top <= pos) current = sectionTops[i].id;
+          else break;
         }
-        );
         anchors.forEach(function (a) {
-          a.classList.toggle("active", a.getAttribute("href") === "#" + current);
-
-        }
-        );
-
+          var active = a.getAttribute("href") === "#" + current;
+          if (a.classList.contains("active") !== active) {
+            a.classList.toggle("active", active);
+          }
+        });
       }
-      window.addEventListener("scroll", updateSpy, {
+
+      function scheduleSpy() {
+        if (spyRaf) return;
+        spyRaf = requestAnimationFrame(function () {
+          spyRaf = 0;
+          updateSpyNow();
+        });
+      }
+
+      refreshSectionTops();
+      window.addEventListener("resize", function () {
+        refreshSectionTops();
+        scheduleSpy();
+      }, { passive: true });
+
+      window.addEventListener("scroll", scheduleSpy, {
         passive: true
-      }
-      );
+      });
       /* Reveal on scroll */      var revealEls = document.querySelectorAll("[data-reveal]");
       var revealObs = null;
       function initReveals() {
@@ -8265,7 +8399,8 @@
 
       }
       );
-      updateSpy();
+      refreshSectionTops();
+      updateSpyNow();
       if (document.readyState === "loading") {
         document.addEventListener("DOMContentLoaded", startIntro);
 
@@ -8283,7 +8418,7 @@
       "use strict";
       var host = document.getElementById("hwEmbers");
       if (!host || host.childElementCount) return;
-      var n = window.innerWidth < 720 ? 16 : 34;
+      var n = window.innerWidth < 720 ? 4 : 7;
       for (var i = 0; i < n; i++) {
         var e = document.createElement("span");
         e.className = "hw-ember";
@@ -8480,6 +8615,7 @@
       }
     })();
   </script>
+
 </body>
 
 </html>
